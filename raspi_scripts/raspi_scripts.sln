@@ -5,6 +5,12 @@ VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "weather_data", "weather_data\weather_data.pyproj", "{C38AF0E6-50AF-4145-8E8B-DB1E6896B78D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{31B4C9CC-678F-42AC-8E76-1A45D95AE36F}"
+	ProjectSection(SolutionItems) = preProject
+		PACKAGES.txt = PACKAGES.txt
+		README.txt = README.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
