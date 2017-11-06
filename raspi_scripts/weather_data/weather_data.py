@@ -5,14 +5,19 @@ import openpyxl
 import json
 import sys
 import datetime
-from xmljson import badgerfish as bf
-from xml.etree.ElementTree import fromstring
+import xml.etree.ElementTree as ET
+
+# TODO: proper placement for this function
+def get_time():  # Get time and format it for the link
+    timestamp = datetime.datetime.now().strftime('%Y-%m-%dT%H:00:00Z')
+    return str(timestamp)
+
 
 # Constants
 API_KEY = 'a42452aa-ef80-4041-9668-4aa5007f61ef'
 PLACE = 'lahti'
-START_TIME = '2017-10-30T14:00:00Z' # TODO: get_time() format
-END_TIME = '2017-10-30T17:00:00Z'   # TODO: get_time() format
+START_TIME = get_time()
+END_TIME = get_time()
 TIMESTEP = 60  # min
 LINK = ('http://data.fmi.fi/fmi-apikey/%s/wfs?request=getFeature'
     '&storedquery_id=fmi::forecast::hirlam::surface::point::timevaluepair'
@@ -22,31 +27,32 @@ LINK = ('http://data.fmi.fi/fmi-apikey/%s/wfs?request=getFeature'
 def get_data(url):
     response = requests.get(url)
     response.raise_for_status()
-    return response.text
+    return (response.text)
 
-def convert_to_json(data):
-    return json.dumps(bf.data(fromstring(data)))
+def xml_parse(data):
+    root = ET.fromstring(data)
+    return root
 
-def get_time():  # DO NEXT
-    timestamp = datetime.datetime.now()
-    timestamp.strftime('%Y-%m-%dT%H:00:00Z')
-    print(timestamp)
-    return str(timestamp)
-
-def get_wanted_data():
-    # TODO
-    return
+def get_weather_data(XML_DATA):
+    indexPosition = 0
+    weatherData = {'temperature': 0, 'weather_icon': 0}
+    for value in XML_DATA.iter('{http://www.opengis.net/waterml/2.0}value'):
+        if indexPosition == 0:
+            weatherData['temperature'] = float(value.text)
+        elif indexPosition == 1:
+            weatherData['weather_icon'] = float(value.text)
+        indexPosition += 1
+    return weatherData
 
 def is_location_given():
     # TODO
     return
 
+
+
 def main():
-    get_time()
-    print(LINK)
-    json = convert_to_json(get_data(LINK))
-    print(json)
-
-
+    #print(LINK)
+    data = xml_parse(get_data(LINK))
+    print(get_weather_data(data))
 if __name__ == "__main__":
     main()
