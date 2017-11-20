@@ -20,7 +20,7 @@ PLACE = 'lahti'
 START_TIME = get_time()
 END_TIME = get_time()
 TIMESTEP = 60  # min
-SLEEPTIME = 5  # s
+SLEEPTIME = 900  # s
 LINK = ('http://data.fmi.fi/fmi-apikey/%s/wfs?request=getFeature'
     '&storedquery_id=fmi::forecast::hirlam::surface::point::timevaluepair'
     '&place=%s&parameters=Temperature,WeatherSymbol3&starttime=%s&endtime=%s'
