@@ -8,7 +8,6 @@ import datetime
 import time
 import xml.etree.ElementTree as ET
 
-# TODO: proper placement for this function
 def get_time():  # Get time and format it for the link
     timestamp = datetime.datetime.now().strftime('%Y-%m-%dT%H:00:00Z')
     return str(timestamp)
@@ -46,15 +45,8 @@ def get_weather_data(XML_DATA):
         indexPosition += 1
     return weatherData
 
-def is_location_given():
-    # TODO
-    return
-
-
-
 def main():
     while True:
-        #print(LINK)
         data = xml_parse(get_data(LINK))
         print(get_weather_data(data))
         with open('data.json', 'w') as fp:
