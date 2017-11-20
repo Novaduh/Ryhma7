@@ -5,6 +5,7 @@ import openpyxl
 import json
 import sys
 import datetime
+import time
 import xml.etree.ElementTree as ET
 
 # TODO: proper placement for this function
@@ -19,6 +20,7 @@ PLACE = 'lahti'
 START_TIME = get_time()
 END_TIME = get_time()
 TIMESTEP = 60  # min
+SLEEPTIME = 5  # s
 LINK = ('http://data.fmi.fi/fmi-apikey/%s/wfs?request=getFeature'
     '&storedquery_id=fmi::forecast::hirlam::surface::point::timevaluepair'
     '&place=%s&parameters=Temperature,WeatherSymbol3&starttime=%s&endtime=%s'
@@ -51,8 +53,13 @@ def is_location_given():
 
 
 def main():
-    #print(LINK)
-    data = xml_parse(get_data(LINK))
-    print(get_weather_data(data))
+    while True:
+        #print(LINK)
+        data = xml_parse(get_data(LINK))
+        print(get_weather_data(data))
+        with open('data.json', 'w') as fp:
+            json.dump(get_weather_data(data), fp)
+        time.sleep(SLEEPTIME)
+
 if __name__ == "__main__":
     main()
