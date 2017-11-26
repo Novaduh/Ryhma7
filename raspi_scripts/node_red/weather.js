@@ -1,4 +1,6 @@
-if(msg.payload.weather_icon == 1)
+/*Tässä koodissa tarkastellaan Weather datasta saatuja arvoja ja asetetaan niille oikeaa säätä kuvastava teksti, 
+joka näykyy Node-red UI:ssa.*/
+if(msg.payload.weather_icon == 1) // Jos saatu arvo on 1, Node-red antaa arvon "Selkeää".
     msg.payload = "Selkeää"
 else if(msg.payload.weather_icon == 2)
     msg.payload = "Puolipilvistä"
@@ -52,4 +54,4 @@ else if(msg.payload.weather_icon == 91)
     msg.payload = "Utua"
 else if(msg.payload.weather_icon == 92)
     msg.payload = "Sumua"
-return msg;
+return msg;                                 
